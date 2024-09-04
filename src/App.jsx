@@ -13,7 +13,6 @@ function App() {
       <div className="content">
         <Header></Header>
         <CreatePost></CreatePost>
-        <Card></Card>
         <PostList></PostList>
         <Footer></Footer>
       </div>
