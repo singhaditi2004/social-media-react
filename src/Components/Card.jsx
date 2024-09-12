@@ -2,7 +2,7 @@ import { MdDelete } from "react-icons/md";
 import { useContext } from "react";
 import { PostList } from "./Post-List-Store";
 const Card = ({ post }) => {
-  const { deletePost } = useContext(PostList);
+  const { deletePost, reactToPost } = useContext(PostList);
   return (
     <div className="card post-card" style={{ width: "28rem" }}>
       <div className="card-body">
@@ -24,6 +24,13 @@ const Card = ({ post }) => {
         <div className="alert alert-info reaction" role="alert">
           Total reactions: {post.react}
         </div>
+        <button
+          type="button"
+          className="btn btn-outline-primary m-2"
+          onClick={() => reactToPost(post.id)}
+        >
+          React
+        </button>
       </div>
     </div>
   );
