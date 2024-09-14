@@ -4,6 +4,7 @@ export const PostList = createContext({
   postList: [],
   addPost: () => {},
   deletePost: () => {},
+  addPosts: () => {},
 });
 const postListReducer = (currentPostList, action) => {
   let updatedPostList = currentPostList;
@@ -21,6 +22,9 @@ const postListReducer = (currentPostList, action) => {
   }
   if (action.type === "ADD_POST") {
     updatedPostList = [action.payload, ...currentPostList];
+  }
+  if (action.type === "ADD_POSTS") {
+    updatedPostList = action.payload.posts;
   }
   return updatedPostList;
 };
@@ -47,7 +51,15 @@ const PostListProvier = ({ children }) => {
   const reactToPost = (idpost) => {
     dispatchPostList({ type: "INCREMENT_REACT", payload: { idpost } });
   };
-
+  const addPosts = (posts) => {
+    dispatchPostList({
+      type: "ADD_POSTS",
+      payload: {
+        posts,
+      },
+    });
+    console.log(posts);
+  };
   return (
     <PostList.Provider
       value={{
@@ -55,6 +67,7 @@ const PostListProvier = ({ children }) => {
         addPost: addPost,
         deletePost: deletePost,
         reactToPost: reactToPost,
+        addPosts: addPosts,
       }}
     >
       {children}
