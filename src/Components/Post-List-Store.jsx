@@ -24,7 +24,11 @@ const postListReducer = (currentPostList, action) => {
     updatedPostList = [action.payload, ...currentPostList];
   }
   if (action.type === "ADD_POSTS") {
-    updatedPostList = action.payload.posts;
+    updatedPostList = action.payload.posts.map((post) => ({
+      ...post,
+      react: post.reactions.likes,
+      content: post.body, // Store only likes
+    }));
   }
   return updatedPostList;
 };
