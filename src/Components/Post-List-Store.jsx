@@ -37,14 +37,7 @@ const PostListProvier = ({ children }) => {
   const addPost = (post) => {
     dispatchPostList({
       type: "ADD_POST",
-      payload: {
-        id: Date.now(),
-        title: post.title,
-        content: post.content,
-        react: post.react,
-        userId: post.userId,
-        tags: post.tags || [],
-      },
+      payload: post,
     });
     console.log(post);
   };
