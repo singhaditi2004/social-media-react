@@ -1,22 +1,25 @@
 import Card from "./Card";
 import { PostList as PostListData } from "./Post-List-Store";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import WelcomeMessage from "./WelcomeMessage";
+import LoadingSpinner from "./LoadingSpinner";
 const PostList = () => {
   const { postList, addPosts } = useContext(PostListData);
+  const [fetching, setFetching] = useState(false);
   useEffect(() => {
+    setFetching(true);
     fetch("https://dummyjson.com/posts")
       .then((res) => res.json())
       .then((data) => {
         addPosts(data.posts);
+        setFetching(false);
       });
   }, []);
 
   return (
     <div>
-      {postList.length === 0 && <WelcomeMessage />}
-
-      <h1>Post List</h1>
+      {fetching && <LoadingSpinner />}
+      {!fetching && postList.length === 0 && <WelcomeMessage />}
       {postList.map((post) => (
         <Card key={post.id} post={post} />
       ))}
