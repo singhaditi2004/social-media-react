@@ -17,10 +17,10 @@ const CreatePost = () => {
       react: 0,
     };
 
-    userId.current.value = "";
+    /*  userId.current.value = "";
     content.current.value = "";
     tags.current.value = "";
-    title.current.value = "";
+    title.current.value = "";*/
     fetch("https://dummyjson.com/posts/add", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
