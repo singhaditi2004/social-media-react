@@ -1,20 +1,10 @@
 import Card from "./Card";
 import { PostList as PostListData } from "./Post-List-Store";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import WelcomeMessage from "./WelcomeMessage";
 import LoadingSpinner from "./LoadingSpinner";
 const PostList = () => {
-  const { postList, addPosts } = useContext(PostListData);
-  const [fetching, setFetching] = useState(false);
-  useEffect(() => {
-    setFetching(true);
-    fetch("https://dummyjson.com/posts")
-      .then((res) => res.json())
-      .then((data) => {
-        addPosts(data.posts);
-        setFetching(false);
-      });
-  }, []);
+  const { postList, fetching } = useContext(PostListData);
 
   return (
     <div>

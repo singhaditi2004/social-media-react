@@ -1,10 +1,10 @@
-import { createContext, useReducer } from "react";
+import { createContext, useReducer, useState, useEffect } from "react";
 
 export const PostList = createContext({
   postList: [],
   addPost: () => {},
+  fetching: false,
   deletePost: () => {},
-  addPosts: () => {},
 });
 const postListReducer = (currentPostList, action) => {
   let updatedPostList = currentPostList;
@@ -34,6 +34,16 @@ const postListReducer = (currentPostList, action) => {
 };
 const PostListProvier = ({ children }) => {
   const [postList, dispatchPostList] = useReducer(postListReducer, []);
+  const [fetching, setFetching] = useState(false);
+  useEffect(() => {
+    setFetching(true);
+    fetch("https://dummyjson.com/posts")
+      .then((res) => res.json())
+      .then((data) => {
+        addPosts(data.posts);
+        setFetching(false);
+      });
+  }, []);
   const addPost = (post) => {
     dispatchPostList({
       type: "ADD_POST",
@@ -61,10 +71,10 @@ const PostListProvier = ({ children }) => {
     <PostList.Provider
       value={{
         postList: postList,
+        fetching: fetching,
         addPost: addPost,
         deletePost: deletePost,
         reactToPost: reactToPost,
-        addPosts: addPosts,
       }}
     >
       {children}
