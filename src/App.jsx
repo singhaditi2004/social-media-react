@@ -6,7 +6,7 @@ import Header from "./Components/Header";
 import PostList from "./Components/PostList";
 import SideBar from "./Components/SideBar";
 import PostListProvier from "./Components/Post-List-Store";
-
+import { Outlet } from "react-router-dom";
 function App() {
   const [selectedState, setSelectedState] = useState("createPost");
   return (
@@ -18,12 +18,7 @@ function App() {
         ></SideBar>
         <div className="content">
           <Header></Header>
-          {selectedState == "home" ? (
-            <PostList></PostList>
-          ) : (
-            <CreatePost></CreatePost>
-          )}
-
+          <Outlet />
           <Footer></Footer>
         </div>
       </div>
